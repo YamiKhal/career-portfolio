@@ -1,23 +1,34 @@
+---
+import "../styles/global.css";
+import { getVariantFromDomain } from "../lib/domain-variants";
+
+const variant = getVariantFromDomain(Astro.url);
+---
+
 <!doctype html>
-<html lang="en">
+<html lang={Astro.currentLocale === "de" ? "de" : "en"}>
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+
+		<title>{variant.displayName}</title>
+		<meta name="description" content={variant.description} />
+
+		{variant.type === "career" && (
+			<meta name="robots" content="noindex,nofollow" />
+		)}
 	</head>
-	<body>
-		<slot />
+	<body class="min-h-screen bg-bg text-text">
+		<main class="mx-auto max-w-5xl px-6 py-12 flex flex-col gap-20">
+			<slot />
+		</main>
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

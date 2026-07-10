@@ -1,0 +1,30 @@
+---
+interface Props {
+	src: string;
+	href: string;
+	title: string;
+	size?: number | string;
+}
+
+const { src, href, title, size = 48 } = Astro.props;
+
+const finalSize = typeof size === "number" ? `${size}px` : size;
+---
+
+<a
+	href={href}
+	aria-label={title}
+	target="_blank"
+	rel="noreferrer noopener"
+	class="group relative inline-grid place-items-center"
+	style={`width:${finalSize};height:${finalSize};`}
+>
+	<span class="bg-primary-hover absolute inset-x-0 bottom-0 h-3 translate-y-2"
+	></span>
+
+	<span
+		class="bg-primary text-bg relative z-10 grid place-items-center transition-transform duration-150 ease-[steps(2,end)] group-hover:translate-y-1 [&>svg]:block [&>svg]:h-full [&>svg]:w-full"
+		style={`width:${finalSize};height:${finalSize};padding:8px;`}
+		set:html={src}
+	/>
+</a>

@@ -1,0 +1,20 @@
+---
+import { getVariantFromDomain } from "../lib/domain-variants";
+import IconButton from "./IconButton.astro"
+import GithubIcon from "@/assets/icons/github.svg?raw"
+import LinkedIcon from "@/assets/icons/linked.svg?raw"
+import TwitterIcon from "@/assets/icons/twitter.svg?raw"
+
+
+const variant = getVariantFromDomain(Astro.url);
+---
+
+<div class="flex flex-col gap-3">
+    <IconButton src={TwitterIcon} href="https://x.com/home" title="X profile" size={48}/>
+    {
+        variant.type === "career" &&
+        <IconButton src={LinkedIcon} href="https://de.linkedin.com/in/yamen-khalili-9303b51b5" title="LinkedIn profile" size={48}/>
+    }
+    <IconButton src={GithubIcon} href="https://github.com/YamiKhal" title="Github profile" size={48}/>
+    
+</div>

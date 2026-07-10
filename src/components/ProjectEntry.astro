@@ -1,0 +1,112 @@
+---
+import { Image } from "astro:assets";
+import Button from "./Button.astro";
+import { joinClass } from "./util";
+import GithubIcon from "@/assets/icons/github.svg?raw";
+
+interface Props {
+	src: string;
+	title: string;
+	tags: string[];
+	website?: string;
+	blog?: string;
+	github?: string;
+}
+
+const { src, title, tags, website, blog, github } = Astro.props;
+
+const baseTagClass = "capitalize p-1 rounded border text-xs";
+
+const tagClasses = {
+	typescript: joinClass(baseTagClass, "text-info border-info bg-info/5"),
+	react: joinClass(baseTagClass, "text-info border-info bg-info/5"),
+	"next.js": joinClass(
+		baseTagClass,
+		"text-text-muted border-text-muted bg-text-muted/5",
+	),
+	tailwind: joinClass(baseTagClass, "text-info border-info bg-info/5"),
+	"node.js": joinClass(
+		baseTagClass,
+		"text-success border-success bg-success/5",
+	),
+	postgresql: joinClass(baseTagClass, "text-info border-info bg-info/5"),
+	prisma: joinClass(
+		baseTagClass,
+		"text-text-muted border-text-muted bg-text-muted/5",
+	),
+	redis: joinClass(baseTagClass, "text-error border-error bg-error/5"),
+	docker: joinClass(baseTagClass, "text-info border-info bg-info/5"),
+	git: joinClass(baseTagClass, "text-error border-error bg-error/5"),
+	coolify: joinClass(
+		baseTagClass,
+		"text-primary border-primary bg-primary/5",
+	),
+	"github actions": joinClass(
+		baseTagClass,
+		"text-info border-info bg-info/5",
+	),
+	sonarqube: joinClass(
+		baseTagClass,
+		"text-text-muted border-text-muted bg-text-muted/5",
+	),
+	eslint: joinClass(
+		baseTagClass,
+		"text-primary-hover border-primary-hover bg-primary-hover/5",
+	),
+	java: joinClass(baseTagClass, "text-warn border-warn bg-warn/5"),
+	python: joinClass(baseTagClass, "text-warn border-warn bg-warn/5"),
+	"express.js": joinClass(
+		baseTagClass,
+		"text-text-muted border-text-muted bg-text-muted/5",
+	),
+} as Record<string, string>;
+---
+
+<div
+	class="border-border bg-surface text-text flex min-h-100 flex-col gap-5 border p-3"
+>
+	<h2 class="text-primary text-xl font-bold capitalize">{title}</h2>
+	<Image src={src} alt={`${title} cover`} width={800} height={600} />
+	<p class="text-md text-text">
+		<slot />
+	</p>
+	<div class="flex flex-row flex-wrap gap-2">
+		{tags.map((tag) => <div class={tagClasses[tag]}>{tag}</div>)}
+	</div>
+
+	<div class="flex w-full flex-row gap-3">
+		<Button
+			href={website ?? "#"}
+			ariaLabel="Website"
+			class="flex-1"
+			target="_blank"
+			rel="noreferrer noopener"
+			disabled={!website}
+		>
+			Website
+		</Button>
+
+		<Button
+			href={blog ?? "#"}
+			ariaLabel="Blog"
+			target="_blank"
+			rel="noreferrer noopener"
+			disabled={!blog}
+		>
+			Blog
+		</Button>
+
+		<Button
+			href={github ?? "#"}
+			ariaLabel="GitHub"
+			target="_blank"
+			rel="noreferrer noopener"
+			disabled={!github}
+		>
+			<span
+				class="block size-6 [&>svg]:block [&>svg]:size-full"
+				set:html={GithubIcon}
+			/>
+		</Button>
+	</div>
+</div>

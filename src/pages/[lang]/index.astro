@@ -1,0 +1,97 @@
+---
+import type { GetStaticPaths } from "astro";
+import { CodeXml, MapPin, Hourglass, Rocket } from "@lucide/astro";
+import Layout from "../../layouts/Layout.astro";
+import { getVariantFromDomain } from "../../lib/domain-variants";
+import CoffeeAscii from "../../components/CoffeeAscii.astro";
+import SocialBar from "../../components/SocialBar.astro";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import TechTerminal from "@/components/TechTerminal.astro";
+import ProjectEntry from "@/components/ProjectEntry.astro";
+import Button from "@/components/Button.astro";
+
+export const getStaticPaths = (async () => {
+	return [{ params: { lang: "en" } }, { params: { lang: "de" } }];
+}) satisfies GetStaticPaths;
+
+const variant = getVariantFromDomain(Astro.url);
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Layout>
+	<section class="flex w-full flex-row items-end justify-between">
+		<div>
+			<div>
+				<h1 class="text-text text-xl">{t("main.head.intro")}</h1>
+				<h1 class="text-secondary text-5xl font-bold">
+					{variant.displayName}
+				</h1>
+				<div class="flex flex-row items-center gap-1 text-lg">
+					<span class="text-primary"><MapPin size={18} /></span>{
+						t("main.head.location")
+					}
+				</div>
+				<div class="flex flex-row items-center gap-1 text-lg">
+					<span class="text-primary"><Hourglass size={18} /></span>{
+						t("main.head.age")
+					}
+				</div>
+				<div class="flex flex-row items-center gap-1 text-lg">
+					<span class="text-primary"><CodeXml size={18} /></span
+					>Full-Stack Developer
+				</div>
+				<div class="flex flex-row items-center gap-1 text-lg">
+					<span class="text-primary"><Rocket size={18} /></span>{
+						t("main.head.exp")
+					}
+				</div>
+			</div>
+			<div class="mt-5 mb-3">
+				<Button
+					href="mailto:contact@yamikhal.com"
+					ariaLabel={t("button.contact")}
+				>
+					{t("button.contact")}
+				</Button>
+			</div>
+		</div>
+		<CoffeeAscii />
+		<SocialBar />
+	</section>
+
+	<section>
+		<h1 class="text-primary-hover text-2xl font-bold">
+			{t("main.tech.intro")}
+		</h1>
+		<TechTerminal />
+	</section>
+
+	<section>
+		<h1 class="text-primary-hover text-2xl font-bold">
+			{t("main.project.intro")}
+		</h1>
+		<div class="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
+			<ProjectEntry
+				src="/projects/trackgames-mainpage.png"
+				title="Trackgames"
+				tags={[
+					"next.js",
+					"typescript",
+					"prisma",
+					"postgresql",
+					"redis",
+					"tailwind",
+					"docker",
+					"coolify",
+				]}
+				website="https://trackgames.app/"
+				github="https://github.com/YamiKhal/TrackGames"
+			>
+				A <span class="text-secondary">complete game tracker</span> where
+				you can organize your library, rate games, track progress, and share
+				your profile.
+			</ProjectEntry>
+		</div>
+	</section>
+</Layout>

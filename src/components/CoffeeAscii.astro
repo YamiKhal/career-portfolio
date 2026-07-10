@@ -1,0 +1,82 @@
+---
+const frames = [
+String.raw`
+   ((
+    ))
+   ((
+.........
+|       |]
+\       /
+ \_____/
+`,
+String.raw`
+    ((
+   ((
+    ))
+.........
+|       |]
+\       /
+ \_____/
+`,
+String.raw`
+    ))
+   ((
+   ((
+.........
+|       |]
+\       /
+ \_____/
+`,
+String.raw`
+    ))
+    ))
+   ((
+.........
+|       |]
+\       /
+ \_____/
+`,
+String.raw`
+   ((
+    ))
+   ((
+.........
+|       |]
+\       /
+ \_____/
+`,
+];
+---
+
+<figure aria-label="Animated ASCII coffee cup">
+	<pre id="coffee-art" class="coffeeAscii text-text-faint font-bold"></pre>
+</figure>
+
+<script is:inline define:vars={{ frames }}>
+	const el = document.getElementById("coffee-art");
+	let index = 0;
+
+	function render() {
+		if (!el) return;
+
+		el.textContent = `${frames[index]}`;
+		index = (index + 1) % frames.length;
+	}
+
+	render();
+	setInterval(render, 650);
+</script>
+
+<style>
+
+	.coffeeAscii{
+		display: block;
+		margin: 0;
+		padding: 0;
+		white-space: pre;
+		font-family: "Courier New", monospace;
+		line-height: 1;
+		font-size: clamp(0.9rem, 2.5vw, 3rem);
+		user-select: none;
+	}
+</style>

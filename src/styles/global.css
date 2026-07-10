@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@theme {
+	--color-bg: #13151a;
+
+	/* Main terminal colors */
+	--color-primary: #7278b5;
+	--color-primary-hover: #4f537a;
+	--color-secondary: #9b8bff;
+
+	/* Text */
+	--color-text: #eeeeee;
+	--color-text-inverse: #000000;
+	--color-text-muted: #8a8fa4;
+
+	/* Semantic */
+	--color-success: #69c08b;
+	--color-warning: #d6b86a;
+	--color-error: #d46c7b;
+	--color-info: #6ea8d9;
+
+	/* UI */
+	--color-border: #4f537a;
+	--color-surface: #181a20;
+
+	/* Misc */
+	--color-selection: #7278b540;
+}
+
+html,
+body {
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	font-family: "Montserrat", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: normal;
+	font-style: normal;
+}

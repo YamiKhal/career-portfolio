@@ -1,0 +1,68 @@
+---
+interface Props {
+	href: string;
+	ariaLabel: string;
+
+	class?: string;
+
+	backgroundClass?: string;
+	shadowClass?: string;
+	textClass?: string;
+
+	hoverOffset?: string;
+
+	target?: "_blank" | "_self";
+	rel?: string;
+
+	disabled?: boolean;
+}
+
+const {
+	href,
+	ariaLabel,
+
+	class: className = "",
+
+	backgroundClass = "bg-primary",
+	shadowClass = "bg-primary-hover",
+	textClass = "text-bg",
+
+	hoverOffset = "group-hover:translate-y-1",
+
+	target,
+	rel,
+
+	disabled = false,
+} = Astro.props;
+---
+
+<a
+	href={disabled ? null : href}
+	aria-label={ariaLabel}
+	aria-disabled={disabled}
+	target={disabled ? undefined : target}
+	rel={disabled ? undefined : rel}
+	class:list={[
+		"group relative inline-grid",
+		className,
+		disabled && "cursor-not-allowed opacity-50",
+	]}
+>
+	<span
+		class:list={[
+			"absolute inset-x-0 bottom-0 h-3 translate-y-2 transition-opacity",
+			disabled ? "bg-bg border-border border" : shadowClass,
+		]}
+	/>
+
+	<span
+		class:list={[
+			"relative z-10 grid min-h-12 place-items-center p-3 font-bold transition-transform duration-150 ease-[steps(2,end)]",
+			disabled ? "bg-surface text-text-muted" : backgroundClass,
+			!disabled ? textClass : "border-border border",
+			!disabled && hoverOffset,
+		]}
+	>
+		<slot />
+	</span>
+</a>

@@ -1,0 +1,194 @@
+---
+import TechEntry from "@/components/TechEntry.astro";
+
+import DockerIcon from "@/assets/icons/docker.svg?raw";
+import GitIcon from "@/assets/icons/git.svg?raw";
+import JavaIcon from "@/assets/icons/java.svg?raw";
+import NextJsIcon from "@/assets/icons/nextdotjs.svg?raw";
+import NodeJsIcon from "@/assets/icons/nodedotjs.svg?raw";
+import PostgreSqlIcon from "@/assets/icons/postgresql.svg?raw";
+import PrismaIcon from "@/assets/icons/prisma.svg?raw";
+import ReactIcon from "@/assets/icons/react.svg?raw";
+import RedisIcon from "@/assets/icons/redis.svg?raw";
+import TailwindCssIcon from "@/assets/icons/tailwindcss.svg?raw";
+import TypescriptIcon from "@/assets/icons/typescript.svg?raw";
+import ExpressIcon from "@/assets/icons/express.svg?raw";
+import CoolifyIcon from "@/assets/icons/coolify.svg?raw";
+import EslintIcon from "@/assets/icons/eslint.svg?raw";
+import SonarIcon from "@/assets/icons/sonarqube.svg?raw";
+import GithubActionsIcon from "@/assets/icons/githubactions.svg?raw";
+import PythonIcon from "@/assets/icons/python.svg?raw";
+
+const panels = [
+	{
+		id: "stack",
+		entries: [
+			{ icon: TypescriptIcon, title: "TypeScript" },
+			{ icon: ReactIcon, title: "React" },
+			{ icon: NextJsIcon, title: "Next.js" },
+			{ icon: TailwindCssIcon, title: "Tailwind CSS" },
+			{ icon: NodeJsIcon, title: "Node.js" },
+			{ icon: PostgreSqlIcon, title: "PostgreSQL" },
+			{ icon: PrismaIcon, title: "Prisma" },
+			{ icon: RedisIcon, title: "Redis" },
+		],
+	},
+	{
+		id: "tools",
+		entries: [
+			{ icon: DockerIcon, title: "Docker" },
+			{ icon: GitIcon, title: "Git" },
+			{ icon: CoolifyIcon, title: "Coolify" },
+			{ icon: GithubActionsIcon, title: "Github Actions" },
+			{ icon: SonarIcon, title: "SonarQube" },
+			{ icon: EslintIcon, title: "ESlint" },
+		],
+	},
+	{
+		id: "other",
+		entries: [
+			{ icon: JavaIcon, title: "Java" },
+			{ icon: PythonIcon, title: "Python" },
+			{ icon: ExpressIcon, title: "Express.js" },
+		],
+	},
+];
+---
+
+<div class="tech-terminal" data-tech-terminal>
+	<div class="border-border bg-surface overflow-hidden border">
+		<div data-terminal-tabs-view>
+			<nav
+				class="border-border bg-surface flex border-b font-mono text-sm"
+				aria-label="Technology categories"
+			>
+				{
+					panels.map(({ id }, index) => (
+						<button
+							type="button"
+							class:list={[
+								"terminal-tab cursor-pointer",
+								index === 0 && "is-active",
+							]}
+							data-terminal-tab={id}
+						>
+							<span>$</span>
+							{id}
+						</button>
+					))
+				}
+			</nav>
+
+			<div class="bg-bg min-h-48 p-4">
+				{
+					panels.map(({ id, entries }, index) => (
+						<div
+							class:list={[
+								"terminal-panel grid-cols-2 gap-x-3 gap-y-3 sm:grid-cols-3 lg:grid-cols-4",
+								index === 0 ? "grid" : "hidden",
+							]}
+							data-terminal-panel={id}
+						>
+							{entries.map(({ icon, title }) => (
+								<div class="text-text flex min-w-0 items-center gap-2 font-mono">
+									<TechEntry icon={icon} title={title} />
+								</div>
+							))}
+						</div>
+					))
+				}
+			</div>
+		</div>
+
+		<div
+			class="bg-bg text-text-muted hidden max-h-72 min-h-48 overflow-y-auto p-4 font-mono text-sm"
+			data-terminal-screen
+			aria-live="polite"
+		>
+			<div class="space-y-1 whitespace-pre-wrap" data-terminal-history></div>
+		</div>
+
+		<form
+			class="border-border bg-surface focus-within:border-focus flex items-center gap-2 border-t px-3 py-3 font-mono text-sm transition-colors"
+			data-terminal-form
+		>
+			<label class="contents">
+				<span class="text-primary shrink-0">visitor@portfolio:~$</span>
+
+				<input
+					type="text"
+					name="command"
+					class="text-text placeholder:text-text-muted selection:bg-selection min-w-0 flex-1 bg-transparent outline-none"
+					placeholder="type 'help'"
+					autocomplete="off"
+					spellcheck="false"
+					data-terminal-input
+				/>
+			</label>
+		</form>
+	</div>
+</div>
+
+<script>
+	import { setupTerminal } from "./terminal/setup";
+
+	for (const el of document.querySelectorAll<HTMLElement>(
+		"[data-tech-terminal]",
+	)) {
+		setupTerminal(el);
+	}
+</script>
+
+<style>
+	.terminal-tab {
+		position: relative;
+		padding: 0.65rem 1rem;
+		color: var(--color-text-muted);
+		font-weight: bold;
+		transition:
+			color 100ms steps(2, end),
+			background-color 100ms steps(2, end);
+	}
+
+	.terminal-tab:hover {
+		background: var(--color-primary-hover);
+		color: var(--color-text-inverse);
+	}
+
+	.terminal-tab span {
+		color: var(--color-primary);
+	}
+
+	.terminal-tab:hover span {
+		color: var(--color-text-inverse);
+	}
+
+	.terminal-tab.is-active {
+		background: var(--color-primary);
+		color: var(--color-bg);
+	}
+
+	.terminal-tab.is-active span {
+		color: var(--color-bg);
+	}
+</style>
+
+{/* Site is dark by default (see @theme). `theme` toggles this light override. */}
+<style is:global>
+	:root[data-theme="light"] {
+		--color-bg: #f5f6fa;
+		--color-primary: #5157a6;
+		--color-primary-hover: #c3c6e4;
+		--color-secondary: #6a4fff;
+		--color-text: #1b1d24;
+		--color-text-inverse: #ffffff;
+		--color-text-muted: #5b6070;
+		--color-success: #2f8f5b;
+		--color-warning: #a67c1f;
+		--color-error: #c04155;
+		--color-info: #2f6fa8;
+		--color-border: #c3c6d8;
+		--color-surface: #ffffff;
+		--color-selection: #7278b540;
+	}
+</style>
