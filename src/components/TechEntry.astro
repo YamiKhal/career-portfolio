@@ -1,6 +1,4 @@
 ---
-import Icon from './Icon.astro';
-
 interface Props {
     icon: string;
     title: string;
@@ -10,6 +8,12 @@ const { icon, title } = Astro.props;
 ---
 
 <div class="flex flex-row p-2 items-center gap-3 w-fit">
-    <Icon src={icon} size={32} class="" />
+    <span
+        style={`width:${32}px;height:${32}px;`}
+        aria-hidden={title ? undefined : "true"}
+        role={title ? "img" : undefined}
+        aria-label={title}
+        set:html={icon}
+    />
     <p>{title}</p>
 </div>

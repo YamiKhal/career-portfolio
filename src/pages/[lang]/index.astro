@@ -6,7 +6,7 @@ import { getVariantFromDomain } from "../../lib/domain-variants";
 import CoffeeAscii from "../../components/CoffeeAscii.astro";
 import SocialBar from "../../components/SocialBar.astro";
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
-import TechTerminal from "@/components/TechTerminal.astro";
+import TechTerminal from "@/components/terminal/TechTerminal.astro";
 import ProjectEntry from "@/components/ProjectEntry.astro";
 import Button from "@/components/Button.astro";
 
@@ -61,14 +61,14 @@ const t = useTranslations(lang);
 	</section>
 
 	<section>
-		<h1 class="text-primary-hover text-2xl font-bold">
+		<h1 class="text-primary-hover text-2xl font-bold mb-2">
 			{t("main.tech.intro")}
 		</h1>
 		<TechTerminal />
 	</section>
 
 	<section>
-		<h1 class="text-primary-hover text-2xl font-bold">
+		<h1 class="text-primary-hover text-2xl font-bold mb-2">
 			{t("main.project.intro")}
 		</h1>
 		<div class="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">

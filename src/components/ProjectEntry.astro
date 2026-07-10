@@ -1,7 +1,6 @@
 ---
 import { Image } from "astro:assets";
 import Button from "./Button.astro";
-import { joinClass } from "./util";
 import GithubIcon from "@/assets/icons/github.svg?raw";
 
 interface Props {
@@ -18,47 +17,23 @@ const { src, title, tags, website, blog, github } = Astro.props;
 const baseTagClass = "capitalize p-1 rounded border text-xs";
 
 const tagClasses = {
-	typescript: joinClass(baseTagClass, "text-info border-info bg-info/5"),
-	react: joinClass(baseTagClass, "text-info border-info bg-info/5"),
-	"next.js": joinClass(
-		baseTagClass,
-		"text-text-muted border-text-muted bg-text-muted/5",
-	),
-	tailwind: joinClass(baseTagClass, "text-info border-info bg-info/5"),
-	"node.js": joinClass(
-		baseTagClass,
-		"text-success border-success bg-success/5",
-	),
-	postgresql: joinClass(baseTagClass, "text-info border-info bg-info/5"),
-	prisma: joinClass(
-		baseTagClass,
-		"text-text-muted border-text-muted bg-text-muted/5",
-	),
-	redis: joinClass(baseTagClass, "text-error border-error bg-error/5"),
-	docker: joinClass(baseTagClass, "text-info border-info bg-info/5"),
-	git: joinClass(baseTagClass, "text-error border-error bg-error/5"),
-	coolify: joinClass(
-		baseTagClass,
-		"text-primary border-primary bg-primary/5",
-	),
-	"github actions": joinClass(
-		baseTagClass,
-		"text-info border-info bg-info/5",
-	),
-	sonarqube: joinClass(
-		baseTagClass,
-		"text-text-muted border-text-muted bg-text-muted/5",
-	),
-	eslint: joinClass(
-		baseTagClass,
-		"text-primary-hover border-primary-hover bg-primary-hover/5",
-	),
-	java: joinClass(baseTagClass, "text-warn border-warn bg-warn/5"),
-	python: joinClass(baseTagClass, "text-warn border-warn bg-warn/5"),
-	"express.js": joinClass(
-		baseTagClass,
-		"text-text-muted border-text-muted bg-text-muted/5",
-	),
+	typescript: "text-info border-info bg-info/5",
+	react: "text-info border-info bg-info/5",
+	"next.js": "text-text-muted border-text-muted bg-text-muted/5",
+	tailwind: "text-info border-info bg-info/5",
+	"node.js": "text-success border-success bg-success/5",
+	postgresql: "text-info border-info bg-info/5",
+	prisma: "text-text-muted border-text-muted bg-text-muted/5",
+	redis: "text-error border-error bg-error/5",
+	docker: "text-info border-info bg-info/5",
+	git: "text-error border-error bg-error/5",
+	coolify: "text-primary border-primary bg-primary/5",
+	"github actions": "text-info border-info bg-info/5",
+	sonarqube: "text-text-muted border-text-muted bg-text-muted/5",
+	eslint: "text-primary-hover border-primary-hover bg-primary-hover/5",
+	java: "text-warn border-warn bg-warn/5",
+	python: "text-warn border-warn bg-warn/5",
+	"express.js": "text-text-muted border-text-muted bg-text-muted/5",
 } as Record<string, string>;
 ---
 
@@ -71,7 +46,11 @@ const tagClasses = {
 		<slot />
 	</p>
 	<div class="flex flex-row flex-wrap gap-2">
-		{tags.map((tag) => <div class={tagClasses[tag]}>{tag}</div>)}
+		{
+			tags.map((tag) => (
+				<div class:list={[baseTagClass, tagClasses[tag]]}>{tag}</div>
+			))
+		}
 	</div>
 
 	<div class="flex w-full flex-row gap-3">

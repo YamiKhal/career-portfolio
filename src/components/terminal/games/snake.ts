@@ -1,4 +1,4 @@
-import type { GameHandle, Terminal, Vec } from "../types";
+import type { GameHandle, Terminal, Vec } from "../../../types";
 
 const W = 20;
 const H = 12;
@@ -6,7 +6,7 @@ const H = 12;
 const rand = (n: number) => Math.floor(Math.random() * n);
 const cell = (char: string, cls: string) => `<span class="${cls}">${char}</span>`;
 
-/** Classic snake. Arrows steer (no 180s), q/Esc quits. Colored, auto-scrolls. */
+/** Classic snake. Arrows steer (no 180s), q/Esc quits */
 export function snake(t: Terminal, finish: () => void): GameHandle {
 	let body: Vec[] = [{ x: 9, y: 6 }];
 	let dir: Vec = { x: 1, y: 0 };
@@ -63,7 +63,7 @@ export function snake(t: Terminal, finish: () => void): GameHandle {
 	function end() {
 		window.clearInterval(timer);
 		render();
-		t.write(`game over — score ${score}`, "text-error");
+		t.write(`game over | score ${score}`, "text-error");
 		t.write("");
 		t.scrollToBottom();
 		finish();

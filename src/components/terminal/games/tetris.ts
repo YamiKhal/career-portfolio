@@ -1,4 +1,4 @@
-import type { GameHandle, Terminal, Vec } from "../types";
+import type { GameHandle, Terminal, Vec } from "../../../types";
 
 const W = 10;
 const H = 16;
@@ -98,7 +98,7 @@ export function tetris(t: Terminal, finish: () => void): GameHandle {
 		over = true;
 		window.clearInterval(timer);
 		render();
-		t.write(`game over — score ${score}`, "text-error");
+		t.write(`game over | score ${score}`, "text-error");
 		t.write("");
 		t.scrollToBottom();
 		finish();

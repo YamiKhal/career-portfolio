@@ -4,7 +4,7 @@ export type CommandContext = { args: string[]; raw: string };
 
 export type Command = {
 	summary: string;
-	/** Hidden commands are the secrets — excluded from `help`, listed by `secrets`. */
+	/** Hidden commands are the secrets | excluded from `help`, listed by `secrets`. */
 	hidden?: boolean;
 	run: (ctx: CommandContext) => void;
 };
@@ -30,7 +30,6 @@ export interface Terminal {
 	showTerminal(): void;
 	showTabs(): void;
 	selectTab(target: string): boolean;
-	panelTitles(target: string): string[];
 
 	startGame(factory: GameFactory): void;
 	gameRunning(): boolean;

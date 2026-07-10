@@ -1,8 +1,9 @@
 import { COLOR } from "./colors";
 import { snake } from "./games/snake";
 import { sl } from "./games/sl";
+import { hack } from "./games/hack";
 import { tetris } from "./games/tetris";
-import type { Command, Terminal } from "./types";
+import type { Command, Terminal } from "../../types";
 
 const FORTUNES = [
 	"There are only two hard things in CS: cache invalidation and naming things.",
@@ -15,19 +16,20 @@ const FORTUNES = [
 ];
 
 const NEOFETCH_LOGO = [
-	"   $ $  ",
-	"  $$$$$ ",
-	" $  $  $",
-	"  $$$$$ ",
-	"   $ $  ",
+  "    ╱╲    ",
+  "   ╱__╲   ",
+  "  ╱╲  ╱╲  ",
+  " ╱__╲╱__╲ ",
+  " ╲  ╱╲  ╱ ",
+  "  ╲╱__╲╱  ",
 ];
 
 const COW = [
-	"        \\   ^__^",
-	"         \\  (oo)\\_______",
-	"            (__)\\       )\\/\\",
-	"                ||----w |",
-	"                ||     ||",
+  "        \\   ^__^",
+  "         \\  (oo)\\_______",
+  "            (__)\\       )\\/\\\\",
+  "                ||----w |",
+  "                ||     ||",
 ];
 
 /**
@@ -44,47 +46,30 @@ export function createCommands(t: Terminal): Record<string, Command> {
 					if (!cmd.hidden) t.write(`  ${name.padEnd(12)}${cmd.summary}`);
 				}
 				t.write("");
-				t.write("'exit' returns to the tabs. some commands are hidden — poke around.", COLOR.info);
+				t.write("'exit' returns to the tabs. some commands are hidden. Poke around.", COLOR.info);
 			},
 		},
 
 		ls: {
-			summary: "list technology categories",
+			summary: "list skills categories",
 			run: () => t.write(t.targets.join("  "), COLOR.text),
 		},
 
-		cat: {
-			summary: "cat <category> — select tab + list contents",
-			run({ args }) {
-				const target = args[0]?.toLowerCase();
-				if (!target) {
-					t.write("usage: cat <category>", COLOR.error);
-					t.write(`categories: ${t.targets.join(", ")}`);
-					return;
-				}
-				if (!t.selectTab(target)) {
-					t.write(`cat: ${target}: no such category`, COLOR.error);
-					return;
-				}
-				t.write(`# ${target}  (type 'exit' to view it)`, COLOR.heading);
-				t.writeAll(t.panelTitles(target).map((title) => `  ${title}`), COLOR.text);
-			},
-		},
-
 		open: {
-			summary: "open <category> — select tab (alias: cd)",
+			summary: "open <category> to select tab (alias: cd)",
 			run({ args }) {
 				const target = args[0]?.toLowerCase() ?? "";
 				if (!t.selectTab(target)) {
 					t.write(`open: ${target || "?"}: no such category`, COLOR.error);
 					return;
 				}
-				t.write(`selected ${target} — 'exit' to view`, COLOR.info);
+				t.write(`selected ${target} | 'exit' to view`, COLOR.info);
+				t.showTabs();
 			},
 		},
 
 		echo: {
-			summary: "echo <text> — print text",
+			summary: "echo <text> to print text",
 			run: ({ args }) => t.write(args.join(" "), COLOR.text),
 		},
 
@@ -113,14 +98,14 @@ export function createCommands(t: Terminal): Record<string, Command> {
 		},
 
 		man: {
-			summary: "man <command> — describe a command",
+			summary: "man <command> to describe a command",
 			run({ args }) {
 				const cmd = commands[args[0]?.toLowerCase() ?? ""];
 				if (!cmd) {
 					t.write(`no manual entry for ${args[0] ?? "?"}`, COLOR.error);
 					return;
 				}
-				t.write(`${args[0]} — ${cmd.summary || "(secret)"}`, COLOR.text);
+				t.write(`${args[0]} | ${cmd.summary || "(secret)"}`, COLOR.text);
 			},
 		},
 
@@ -134,7 +119,7 @@ export function createCommands(t: Terminal): Record<string, Command> {
 					"shell:   portfolio-sh 3.0",
 					"uptime:  always on",
 					`stack:   ${t.targets.join(", ")}`,
-					"editor:  neovim btw",
+					" editor:  neovim btw",
 				];
 				const rows = Math.max(NEOFETCH_LOGO.length, info.length);
 				for (let i = 0; i < rows; i++) {
@@ -147,11 +132,11 @@ export function createCommands(t: Terminal): Record<string, Command> {
 		},
 
 		cowsay: {
-			summary: "cowsay <text> — the cow speaks",
+			summary: "cowsay <text> so the cow speaks",
 			run({ args }) {
 				const msg = args.join(" ") || "moo";
 				t.writeAll(
-					[` ${"_".repeat(msg.length + 2)}`, `< ${msg} >`, ` ${"-".repeat(msg.length + 2)}`, ...COW],
+					[` ${"-".repeat(msg.length + 2)}`, `| ${msg} |`, ` ${"-".repeat(msg.length + 2)}`, ...COW],
 					COLOR.text,
 				);
 			},
@@ -182,27 +167,23 @@ export function createCommands(t: Terminal): Record<string, Command> {
 				for (const [name, cmd] of Object.entries(commands)) {
 					if (cmd.hidden) t.write(`  ${name.padEnd(12)}${cmd.summary}`);
 				}
-				t.write("");
-				t.write("...and a certain 10-key controller cheat code.", COLOR.info);
 			},
 		},
 
 		snake: {
 			summary: "play snake (arrows move, q quits)",
-			hidden: true,
 			run() {
 				if (t.gameRunning()) return;
-				t.write("launching snake — keep the input focused, arrows to steer.", COLOR.info);
+				t.write("launching snake | keep the input focused, arrows to steer.", COLOR.info);
 				t.startGame(snake);
 			},
 		},
 
 		tetris: {
 			summary: "play tetris (arrows + space, q quits)",
-			hidden: true,
 			run() {
 				if (t.gameRunning()) return;
-				t.write("launching tetris — keep the input focused.", COLOR.info);
+				t.write("launching tetris | keep the input focused.", COLOR.info);
 				t.startGame(tetris);
 			},
 		},
@@ -212,7 +193,7 @@ export function createCommands(t: Terminal): Record<string, Command> {
 			hidden: true,
 			run() {
 				if (t.gameRunning()) return;
-				t.write("choo choo \u{1F686}", COLOR.warning);
+				t.write("choo choo", COLOR.warning);
 				t.startGame(sl);
 			},
 		},
@@ -250,27 +231,7 @@ export function createCommands(t: Terminal): Record<string, Command> {
 			summary: "become a movie hacker",
 			hidden: true,
 			run() {
-				t.writeAll(
-					[
-						"[*] bypassing firewall.......... ok",
-						"[*] injecting payload........... ok",
-						"[*] rerouting through 7 proxies. ok",
-						"[*] ACCESS GRANTED",
-						"just kidding. it's a portfolio. \u{1F60E}",
-					],
-					COLOR.heading,
-				);
-			},
-		},
-
-		coffee: {
-			summary: "brew a cup",
-			hidden: true,
-			run() {
-				t.writeAll(
-					["      ( (", "       ) )", "    ........", "    |      |]", "    \\      /", "     `----'   fresh brew. back to coding."],
-					COLOR.accent,
-				);
+				t.startGame(hack);
 			},
 		},
 
@@ -297,6 +258,7 @@ export function createCommands(t: Terminal): Record<string, Command> {
 
 	// aliases
 	commands.cd = commands.open;
+	commands.cat = commands.open;
 	commands.uname = commands.neofetch;
 
 	return commands;

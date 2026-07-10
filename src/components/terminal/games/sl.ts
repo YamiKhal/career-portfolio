@@ -1,4 +1,4 @@
-import type { GameHandle, Terminal } from "../types";
+import type { GameHandle, Terminal } from "../../../types";
 
 // The classic mistake-punishing steam locomotive. Scrolls right-to-left.
 const TRAIN = [
@@ -13,7 +13,7 @@ const TRAIN = [
 
 const VIEW = 62;
 
-/** Renders `sl` — an animated train chugging across the log. q/Esc skips it. */
+/** Renders `sl` | an animated train chugging across the log. q/Esc skips it. */
 export function sl(t: Terminal, finish: () => void): GameHandle {
 	const trainWidth = Math.max(...TRAIN.map((line) => line.length));
 	let offset = VIEW;

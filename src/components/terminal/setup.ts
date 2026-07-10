@@ -1,10 +1,10 @@
 import { COLOR } from "./colors";
 import { createCommands } from "./commands";
-import type { GameHandle, Terminal } from "./types";
+import type { GameHandle, Terminal } from "../../types";
 
 const KONAMI = [
 	"ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown",
-	"ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a",
+	"ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight",
 ];
 
 /** Wire up one [data-tech-terminal] widget. */
@@ -71,15 +71,6 @@ export function setupTerminal(root: HTMLElement) {
 				panel.classList.toggle("grid", active);
 			}
 			return true;
-		},
-		panelTitles(target) {
-			const panel = root.querySelector<HTMLElement>(
-				`[data-terminal-panel="${target}"]`,
-			);
-			if (!panel) return [];
-			return [...panel.children]
-				.map((child) => child.textContent?.trim() ?? "")
-				.filter(Boolean);
 		},
 
 		startGame(factory) {
@@ -184,7 +175,7 @@ export function setupTerminal(root: HTMLElement) {
 				konamiIndex = 0;
 				terminal.showTerminal();
 				terminal.write("");
-				terminal.write("↑↑↓↓←→←→ B A  — cheat unlocked!", COLOR.accent);
+				terminal.write("↑↑↓↓←→←→ B A  | cheat unlocked!", COLOR.accent);
 				commands.secrets.run({ args: [], raw: "secrets" });
 				terminal.scrollToBottom();
 			}
