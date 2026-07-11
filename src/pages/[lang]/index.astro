@@ -20,32 +20,27 @@ const t = useTranslations(lang);
 ---
 
 <Layout>
-	<section class="flex w-full flex-row items-end justify-between">
+	<section class="flex w-full flex-row items-start justify-start gap-3 flex-wrap sm:flex-nowrap sm:gap-0 sm:flex-row sm:items-end sm:justify-between">
 		<div>
 			<div>
-				<h1 class="text-text text-xl">{t("main.head.intro")}</h1>
-				<h1 class="text-secondary text-5xl font-bold">
+				<h3 class="text-text">{t("main.head.intro")}</h3>
+				<h1 class="text-secondary font-bold">
 					{variant.displayName}
 				</h1>
-				<div class="flex flex-row items-center gap-1 text-lg">
-					<span class="text-primary"><MapPin size={18} /></span>{
+				<p class="flex flex-row items-center gap-1">
+					<marker><MapPin size={18} /></marker>{
 						t("main.head.location")
 					}
-				</div>
-				<div class="flex flex-row items-center gap-1 text-lg">
-					<span class="text-primary"><Hourglass size={18} /></span>{
-						t("main.head.age")
-					}
-				</div>
-				<div class="flex flex-row items-center gap-1 text-lg">
-					<span class="text-primary"><CodeXml size={18} /></span
-					>Full-Stack Developer
-				</div>
-				<div class="flex flex-row items-center gap-1 text-lg">
-					<span class="text-primary"><Rocket size={18} /></span>{
-						t("main.head.exp")
-					}
-				</div>
+				</p>
+				<p class="flex flex-row items-center gap-1">
+					<marker><Hourglass size={18} /></marker>{t("main.head.age")}
+				</p>
+				<p class="flex flex-row items-center gap-1">
+					<marker><CodeXml size={18} /></marker>Full-Stack Developer
+				</p>
+				<p class="flex flex-row items-center gap-1">
+					<marker><Rocket size={18} /></marker>{t("main.head.exp")}
+				</p>
 			</div>
 			<div class="mt-5 mb-3">
 				<Button
@@ -61,19 +56,19 @@ const t = useTranslations(lang);
 	</section>
 
 	<section>
-		<h1 class="text-primary-hover text-2xl font-bold mb-2">
+		<h2 class="text-primary-hover mb-2 font-bold">
 			{t("main.tech.intro")}
-		</h1>
+		</h2>
 		<TechTerminal />
 	</section>
 
 	<section>
-		<h1 class="text-primary-hover text-2xl font-bold mb-2">
+		<h2 class="text-primary-hover mb-2 font-bold">
 			{t("main.project.intro")}
-		</h1>
+		</h2>
 		<div class="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
 			<ProjectEntry
-				src="/projects/trackgames-mainpage.png"
+				src="/projects/trackgames/mainpage.png"
 				title="Trackgames"
 				tags={[
 					"next.js",
@@ -87,10 +82,10 @@ const t = useTranslations(lang);
 				]}
 				website="https://trackgames.app/"
 				github="https://github.com/YamiKhal/TrackGames"
+				blog=`/${lang}/blog/trackgames`
 			>
-				A <span class="text-secondary">complete game tracker</span> where
-				you can organize your library, rate games, track progress, and share
-				your profile.
+				A <mark>complete game tracker</mark> where you can organize your library,
+				rate games, track progress, and share your profile.
 			</ProjectEntry>
 		</div>
 	</section>

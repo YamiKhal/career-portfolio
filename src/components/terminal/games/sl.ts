@@ -23,9 +23,9 @@ export function sl(t: Terminal, finish: () => void): GameHandle {
 
 	function step() {
 		const start = offset < 0 ? -offset : 0;
-		board.textContent = TRAIN
-			.map((line) => (" ".repeat(Math.max(0, offset)) + line).slice(start, start + VIEW))
-			.join("\n");
+		board.textContent = TRAIN.map((line) =>
+			(" ".repeat(Math.max(0, offset)) + line).slice(start, start + VIEW),
+		).join("\n");
 		t.scrollToBottom();
 
 		if (--offset < -trainWidth) end();

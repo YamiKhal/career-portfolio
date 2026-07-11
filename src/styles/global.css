@@ -37,3 +37,85 @@ body {
 	font-weight: normal;
 	font-style: normal;
 }
+
+h1 {
+	font-size: 2.125rem;
+	line-height: 1;
+	letter-spacing: -0.0625rem;
+}
+
+h2 {
+	font-size: 1.875rem;
+	line-height: 1.067;
+	letter-spacing: -0.05rem;
+}
+
+h3 {
+	font-size: 1.5rem;
+	line-height: 1.083;
+	letter-spacing: -0.0375rem;
+}
+
+h4 {
+	font-size: 1.25rem;
+	line-height: 1.1;
+	letter-spacing: -0.025rem;
+}
+
+p {
+	font-size: 1rem;
+	line-height: 1.5;
+	letter-spacing: -0.00625rem;
+}
+
+.base {
+	font-size: 1rem;
+	line-height: 1.5;
+	letter-spacing: -0.00625rem;
+}
+
+mark {
+	color: var(--color-secondary);
+	background-color: transparent;
+}
+
+marker {
+	color: var(--color-primary);
+	background-color: transparent;
+}
+
+@media (max-width: 767px) {
+	h1 {
+		font-size: 2.125rem;
+	}
+
+	h2 {
+		font-size: 1.5rem;
+	}
+
+	h3 {
+		font-size: 1.125rem;
+	}
+
+	h4 {
+		font-size: 1.25rem;
+	}
+}
+
+@media (max-width: 639px) {
+	h1 {
+		font-size: 1.5rem;
+	}
+
+	h2 {
+		font-size: 1.125rem;
+	}
+
+	h3 {
+		font-size: 1.125rem;
+	}
+
+	h4 {
+		font-size: 1.25rem;
+	}
+}

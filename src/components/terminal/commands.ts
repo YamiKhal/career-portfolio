@@ -16,20 +16,20 @@ const FORTUNES = [
 ];
 
 const NEOFETCH_LOGO = [
-  "    ╱╲    ",
-  "   ╱__╲   ",
-  "  ╱╲  ╱╲  ",
-  " ╱__╲╱__╲ ",
-  " ╲  ╱╲  ╱ ",
-  "  ╲╱__╲╱  ",
+	"    ╱╲    ",
+	"   ╱__╲   ",
+	"  ╱╲  ╱╲  ",
+	" ╱__╲╱__╲ ",
+	" ╲  ╱╲  ╱ ",
+	"  ╲╱__╲╱  ",
 ];
 
 const COW = [
-  "        \\   ^__^",
-  "         \\  (oo)\\_______",
-  "            (__)\\       )\\/\\\\",
-  "                ||----w |",
-  "                ||     ||",
+	"        \\   ^__^",
+	"         \\  (oo)\\_______",
+	"            (__)\\       )\\/\\\\",
+	"                ||----w |",
+	"                ||     ||",
 ];
 
 /**
@@ -43,10 +43,14 @@ export function createCommands(t: Terminal): Record<string, Command> {
 			run() {
 				t.write("available commands:", COLOR.text);
 				for (const [name, cmd] of Object.entries(commands)) {
-					if (!cmd.hidden) t.write(`  ${name.padEnd(12)}${cmd.summary}`);
+					if (!cmd.hidden)
+						t.write(`  ${name.padEnd(12)}${cmd.summary}`);
 				}
 				t.write("");
-				t.write("'exit' returns to the tabs. some commands are hidden. Poke around.", COLOR.info);
+				t.write(
+					"'exit' returns to the tabs. some commands are hidden. Poke around.",
+					COLOR.info,
+				);
 			},
 		},
 
@@ -60,7 +64,10 @@ export function createCommands(t: Terminal): Record<string, Command> {
 			run({ args }) {
 				const target = args[0]?.toLowerCase() ?? "";
 				if (!t.selectTab(target)) {
-					t.write(`open: ${target || "?"}: no such category`, COLOR.error);
+					t.write(
+						`open: ${target || "?"}: no such category`,
+						COLOR.error,
+					);
 					return;
 				}
 				t.write(`selected ${target} | 'exit' to view`, COLOR.info);
@@ -102,10 +109,16 @@ export function createCommands(t: Terminal): Record<string, Command> {
 			run({ args }) {
 				const cmd = commands[args[0]?.toLowerCase() ?? ""];
 				if (!cmd) {
-					t.write(`no manual entry for ${args[0] ?? "?"}`, COLOR.error);
+					t.write(
+						`no manual entry for ${args[0] ?? "?"}`,
+						COLOR.error,
+					);
 					return;
 				}
-				t.write(`${args[0]} | ${cmd.summary || "(secret)"}`, COLOR.text);
+				t.write(
+					`${args[0]} | ${cmd.summary || "(secret)"}`,
+					COLOR.text,
+				);
 			},
 		},
 
@@ -136,7 +149,12 @@ export function createCommands(t: Terminal): Record<string, Command> {
 			run({ args }) {
 				const msg = args.join(" ") || "moo";
 				t.writeAll(
-					[` ${"-".repeat(msg.length + 2)}`, `| ${msg} |`, ` ${"-".repeat(msg.length + 2)}`, ...COW],
+					[
+						` ${"-".repeat(msg.length + 2)}`,
+						`| ${msg} |`,
+						` ${"-".repeat(msg.length + 2)}`,
+						...COW,
+					],
 					COLOR.text,
 				);
 			},
@@ -144,7 +162,11 @@ export function createCommands(t: Terminal): Record<string, Command> {
 
 		fortune: {
 			summary: "a random developer truth",
-			run: () => t.write(FORTUNES[Math.floor(Math.random() * FORTUNES.length)], COLOR.info),
+			run: () =>
+				t.write(
+					FORTUNES[Math.floor(Math.random() * FORTUNES.length)],
+					COLOR.info,
+				),
 		},
 
 		clear: {
@@ -165,7 +187,8 @@ export function createCommands(t: Terminal): Record<string, Command> {
 			run() {
 				t.write("hidden commands:", COLOR.heading);
 				for (const [name, cmd] of Object.entries(commands)) {
-					if (cmd.hidden) t.write(`  ${name.padEnd(12)}${cmd.summary}`);
+					if (cmd.hidden)
+						t.write(`  ${name.padEnd(12)}${cmd.summary}`);
 				}
 			},
 		},
@@ -174,7 +197,10 @@ export function createCommands(t: Terminal): Record<string, Command> {
 			summary: "play snake (arrows move, q quits)",
 			run() {
 				if (t.gameRunning()) return;
-				t.write("launching snake | keep the input focused, arrows to steer.", COLOR.info);
+				t.write(
+					"launching snake | keep the input focused, arrows to steer.",
+					COLOR.info,
+				);
 				t.startGame(snake);
 			},
 		},
@@ -183,7 +209,10 @@ export function createCommands(t: Terminal): Record<string, Command> {
 			summary: "play tetris (arrows + space, q quits)",
 			run() {
 				if (t.gameRunning()) return;
-				t.write("launching tetris | keep the input focused.", COLOR.info);
+				t.write(
+					"launching tetris | keep the input focused.",
+					COLOR.info,
+				);
 				t.startGame(tetris);
 			},
 		},
@@ -214,17 +243,24 @@ export function createCommands(t: Terminal): Record<string, Command> {
 			hidden: true,
 			run({ args }) {
 				if (args.join(" ").includes("rm -rf")) {
-					t.write("nice try. this portfolio is immortal.", COLOR.error);
+					t.write(
+						"nice try. this portfolio is immortal.",
+						COLOR.error,
+					);
 					return;
 				}
-				t.write("visitor is not in the sudoers file. this incident will be reported.", COLOR.error);
+				t.write(
+					"visitor is not in the sudoers file. this incident will be reported.",
+					COLOR.error,
+				);
 			},
 		},
 
 		rm: {
 			summary: "permission denied",
 			hidden: true,
-			run: () => t.write("rm: nothing here is going anywhere.", COLOR.error),
+			run: () =>
+				t.write("rm: nothing here is going anywhere.", COLOR.error),
 		},
 
 		hack: {
@@ -242,7 +278,9 @@ export function createCommands(t: Terminal): Record<string, Command> {
 				const glyphs = "01<>/$#*+=-";
 				for (let i = 0; i < 6; i++) {
 					let row = "";
-					for (let j = 0; j < 32; j++) row += glyphs[Math.floor(Math.random() * glyphs.length)];
+					for (let j = 0; j < 32; j++)
+						row +=
+							glyphs[Math.floor(Math.random() * glyphs.length)];
 					t.write(row, COLOR.success);
 				}
 				t.write("wake up, visitor...", COLOR.info);
@@ -252,7 +290,11 @@ export function createCommands(t: Terminal): Record<string, Command> {
 		"42": {
 			summary: "the ultimate answer",
 			hidden: true,
-			run: () => t.write("the answer to life, the universe, and everything.", COLOR.info),
+			run: () =>
+				t.write(
+					"the answer to life, the universe, and everything.",
+					COLOR.info,
+				),
 		},
 	};
 

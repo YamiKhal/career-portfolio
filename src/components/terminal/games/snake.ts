@@ -4,7 +4,8 @@ const W = 20;
 const H = 12;
 
 const rand = (n: number) => Math.floor(Math.random() * n);
-const cell = (char: string, cls: string) => `<span class="${cls}">${char}</span>`;
+const cell = (char: string, cls: string) =>
+	`<span class="${cls}">${char}</span>`;
 
 /** Classic snake. Arrows steer (no 180s), q/Esc quits */
 export function snake(t: Terminal, finish: () => void): GameHandle {
@@ -26,19 +27,41 @@ export function snake(t: Terminal, finish: () => void): GameHandle {
 	}
 
 	function render() {
-		const wall = cell("+" + "-".repeat(W) + "+", "text-text-muted") + "\n";
-		let out = cell(`snake  score:${score}  [arrows · q]`, "text-info") + "\n" + wall;
+		const cellWidth = 2;
+		const wallText = `+${"-".repeat(W * cellWidth)}+`;
+		const lines: string[] = [];
+
+		lines.push(cell(wallText, "text-text-muted"));
+
 		for (let y = 0; y < H; y++) {
-			out += cell("|", "text-text-muted");
+			let row = cell("|", "text-text-muted");
+
 			for (let x = 0; x < W; x++) {
-				if (body[0].x === x && body[0].y === y) out += cell("O", "text-success");
-				else if (body.some((s) => s.x === x && s.y === y)) out += cell("o", "text-primary");
-				else if (food.x === x && food.y === y) out += cell("*", "text-error");
-				else out += " ";
+				if (body[0].x === x && body[0].y === y) {
+					row += cell("██", "text-success");
+				} else if (body.some((s) => s.x === x && s.y === y)) {
+					row += cell("██", "text-primary");
+				} else if (food.x === x && food.y === y) {
+					row += cell("@ ", "text-error");
+				} else {
+					row += " ".repeat(cellWidth);
+				}
 			}
-			out += cell("|", "text-text-muted") + "\n";
+
+			row += cell("|", "text-text-muted");
+
+			if (y === 0) {
+				row += cell(" SCORE", "text-info-muted");
+			} else if (y === 1) {
+				row += cell(` ${score}`, "text-text");
+			}
+
+			lines.push(row);
 		}
-		board.innerHTML = out + wall;
+
+		lines.push(cell(wallText, "text-text-muted"));
+
+		board.innerHTML = lines.join("\n");
 		t.scrollToBottom();
 	}
 
@@ -46,7 +69,10 @@ export function snake(t: Terminal, finish: () => void): GameHandle {
 		dir = next;
 		const head = { x: body[0].x + dir.x, y: body[0].y + dir.y };
 		const dead =
-			head.x < 0 || head.x >= W || head.y < 0 || head.y >= H ||
+			head.x < 0 ||
+			head.x >= W ||
+			head.y < 0 ||
+			head.y >= H ||
 			body.some((s) => s.x === head.x && s.y === head.y);
 		if (dead) return end();
 

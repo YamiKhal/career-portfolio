@@ -3,13 +3,17 @@ import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 
 const blog = defineCollection({
-	loader: glob({ pattern: "**/*.md", base: "./src/content/blog" }),
+	loader: glob({
+		base: "./src/content/blog",
+		pattern: "**/*.{md,mdx}",
+	}),
 	schema: z.object({
 		title: z.string(),
-		date: z.string().transform((s) => {
-			const [day, month, year] = s.split("/");
-			return new Date(`${year}-${month}-${day}`);
-		}),
+		description: z.string(),
+		date: z.coerce.date(),
+		updatedAt: z.coerce.date().optional(),
+		tags: z.array(z.string()).default([]),
+		draft: z.boolean().default(false),
 	}),
 });
 

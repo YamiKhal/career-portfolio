@@ -3,15 +3,25 @@ import { createCommands } from "./commands";
 import type { GameHandle, Terminal } from "../../types";
 
 const KONAMI = [
-	"ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown",
-	"ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight",
+	"ArrowUp",
+	"ArrowUp",
+	"ArrowDown",
+	"ArrowDown",
+	"ArrowLeft",
+	"ArrowRight",
+	"ArrowLeft",
+	"ArrowRight",
 ];
 
 /** Wire up one [data-tech-terminal] widget. */
 export function setupTerminal(root: HTMLElement) {
-	const tabs = root.querySelectorAll<HTMLButtonElement>("[data-terminal-tab]");
+	const tabs = root.querySelectorAll<HTMLButtonElement>(
+		"[data-terminal-tab]",
+	);
 	const panels = root.querySelectorAll<HTMLElement>("[data-terminal-panel]");
-	const tabsView = root.querySelector<HTMLElement>("[data-terminal-tabs-view]");
+	const tabsView = root.querySelector<HTMLElement>(
+		"[data-terminal-tabs-view]",
+	);
 	const screen = root.querySelector<HTMLElement>("[data-terminal-screen]");
 	const history = root.querySelector<HTMLElement>("[data-terminal-history]");
 	const form = root.querySelector<HTMLFormElement>("[data-terminal-form]");
@@ -63,7 +73,10 @@ export function setupTerminal(root: HTMLElement) {
 		selectTab(target) {
 			if (!targets.includes(target)) return false;
 			for (const tab of tabs) {
-				tab.classList.toggle("is-active", tab.dataset.terminalTab === target);
+				tab.classList.toggle(
+					"is-active",
+					tab.dataset.terminalTab === target,
+				);
 			}
 			for (const panel of panels) {
 				const active = panel.dataset.terminalPanel === target;
@@ -89,7 +102,9 @@ export function setupTerminal(root: HTMLElement) {
 
 	// boot banner (waits in the hidden terminal until the first command)
 	terminal.write("portfolio terminal v3.0", COLOR.heading);
-	terminal.write("browse the tabs above, or type a command to drop into the shell.");
+	terminal.write(
+		"browse the tabs above, or type a command to drop into the shell.",
+	);
 	terminal.write(
 		"'help' lists commands. 'exit' returns to tabs. ↑↓ recall, Tab completes.",
 		COLOR.info,
@@ -125,7 +140,11 @@ export function setupTerminal(root: HTMLElement) {
 		const cmd = commands[name.toLowerCase()];
 
 		if (cmd) cmd.run({ args, raw });
-		else terminal.write(`${name}: command not found (try 'help')`, COLOR.error);
+		else
+			terminal.write(
+				`${name}: command not found (try 'help')`,
+				COLOR.error,
+			);
 
 		terminal.scrollToBottom();
 	});

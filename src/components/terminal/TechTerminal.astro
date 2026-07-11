@@ -59,7 +59,7 @@ const panels = [
 	<div class="border-border bg-surface overflow-hidden border">
 		<div data-terminal-tabs-view>
 			<nav
-				class="border-border bg-surface flex border-b font-mono text-sm"
+				class="border-border bg-surface flex border-b text-sm"
 				aria-label="Technology categories"
 			>
 				{
@@ -67,7 +67,7 @@ const panels = [
 						<button
 							type="button"
 							class:list={[
-								"terminal-tab cursor-pointer",
+								"terminal-tab base cursor-pointer",
 								index === 0 && "is-active",
 							]}
 							data-terminal-tab={id}
@@ -90,7 +90,7 @@ const panels = [
 							data-terminal-panel={id}
 						>
 							{entries.map(({ icon, title }) => (
-								<div class="text-text flex min-w-0 items-center gap-2 font-mono">
+								<div class="text-text flex min-w-0 items-center gap-2">
 									<TechEntry icon={icon} title={title} />
 								</div>
 							))}
@@ -101,15 +101,16 @@ const panels = [
 		</div>
 
 		<div
-			class="bg-bg text-text-muted hidden max-h-72 min-h-48 overflow-y-auto p-4 font-mono text-sm"
+			class="bg-bg text-text-muted hidden max-h-96 min-h-48 overflow-y-auto p-4 text-sm font-mono"
 			data-terminal-screen
 			aria-live="polite"
 		>
-			<div class="space-y-1 whitespace-pre-wrap" data-terminal-history></div>
+			<div class="space-y-1 whitespace-pre-wrap" data-terminal-history>
+			</div>
 		</div>
 
 		<form
-			class="border-border bg-surface focus-within:border-focus flex items-center gap-2 border-t px-3 py-3 font-mono text-sm transition-colors"
+			class="border-border bg-surface focus-within:border-focus flex items-center gap-2 border-t px-3 py-3 text-sm transition-colors"
 			data-terminal-form
 		>
 			<label class="contents">
@@ -144,7 +145,6 @@ const panels = [
 		position: relative;
 		padding: 0.65rem 1rem;
 		color: var(--color-text-muted);
-		font-weight: bold;
 		transition:
 			color 100ms steps(2, end),
 			background-color 100ms steps(2, end);
@@ -173,7 +173,9 @@ const panels = [
 	}
 </style>
 
-{/* Site is dark by default (see @theme). `theme` toggles this light override. */}
+{
+	/* Site is dark by default (see @theme). `theme` toggles this light override. */
+}
 <style is:global>
 	:root[data-theme="light"] {
 		--color-bg: #f5f6fa;
