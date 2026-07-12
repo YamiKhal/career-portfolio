@@ -162,6 +162,19 @@
 	margin-block: 1.5rem;
 }
 
+figure img {
+	display: block;
+	width: 100%;
+	margin-block: 1.5rem;
+}
+
+figcaption {
+	font-size: 0.75rem;
+	color: var(--color-text-muted);
+	text-align: start;
+	font-style: italic;
+}
+
 .blog-content table {
 	display: block;
 	width: 100%;

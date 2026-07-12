@@ -1,0 +1,144 @@
+---
+
+title: "TrackGames entwickeln"
+description: "Ein genauerer Blick auf die Designentscheidungen und Struktur von TrackGames."
+date: 2026-07-11T15:00:00+02:00
+tags:
+- trackgames
+- full-stack
+- nextjs
+
+---
+
+import Figure from "@/components/Figure.astro"
+
+Eine Plattform, die es Nutzern ermöglicht, ihre **Gaming-Reise zu verfolgen**, **interessante Zahlen** zu generieren und das Ganze auf eine **spielerische Art** zu erleben.
+
+Warum wurde die Plattform erstellt? Warum ist sie genau so aufgebaut? Genau diese Fragen werde ich beantworten.
+
+## Das Problem
+
+[Backloggd](https://backloggd.com/) ist eine **minimalistische** Game-Tracking-Plattform mit einfach zu nutzenden Features.
+[Infinite Backlog](https://infinitebacklog.net/) bietet umfangreichere Features mit einer komplexeren Oberfläche.
+
+Ich wollte eine Anwendung erstellen, die **beide Plattformen miteinander verbindet**.
+
+<Figure 
+    src="/projects/trackgames/comp.svg"
+	alt="Comparison Display"
+	caption="Abbildung 1. Vergleich zwischen minimalistischen und umfangreichen Interfaces, die die Designrichtung von TrackGames inspiriert haben."
+
+/>
+
+Mit dem minimalistischen UI-Ansatz von Backloggd und den umfangreichen Gamification-Features von Infinite Backlog soll TrackGames die Mitte zwischen diesen beiden Plattformen bilden.
+
+## Designziele
+
+TrackGames basiert auf einigen grundlegenden Prinzipien, die ich beim Entwickeln neuer Features verwende.
+
+* **Zugängliches UI**:
+  Implementierte Features sollen einfach zu entdecken und intuitiv zu bedienen sein.
+* **Belohnende Erfahrung**:
+  Je mehr Nutzer mit Features interagieren, desto mehr Zahlen steigen, Meilensteine werden erreicht und Anpassungsmöglichkeiten werden freigeschaltet.
+* **Zusammengehörige Informationen**:
+  Informationen sollen dort erscheinen, wo Nutzer sie erwarten, ohne unnötige zusätzliche Seiten zu benötigen.
+* **Konsistente Systeme**:
+  Ähnliche Interaktionen sollen gleich funktionieren und dargestellt werden, damit die Erfahrung vorhersehbar bleibt.
+
+<Figure
+	src="/projects/trackgames/profile.svg"
+	alt="TrackGames game page"
+	caption="Abbildung 2. Profilseite mit Nutzeranpassungen und dargestellten Daten."
+/>
+
+## Datenfluss
+
+Anstatt bei jedem Laden einer Seite Daten von externen Services abzurufen, speichert TrackGames eine eigene Version dieser Daten lokal und aktualisiert sie bei Bedarf.
+
+> TrackGames nutzt zwei primäre Datenquellen: [IGDB](https://www.igdb.com/) für Game-Metadaten und **Google Analytics** für Nutzungsstatistiken der Plattform. TrackGames kontrolliert, wie die Daten gespeichert und innerhalb der Anwendung dargestellt werden.
+
+<Figure
+	src="/projects/trackgames/data-flow.svg"
+	alt="TrackGames data flow"
+	caption="Abbildung 3. Darstellung des Prozesses zum Importieren und Verarbeiten von Game-Daten."
+/>
+
+Dieser Ansatz verbessert Antwortzeiten, **vermeidet Einschränkungen durch externe APIs** und erlaubt es, zusätzliche Informationen hinzuzufügen, um die Features der Plattform zu erweitern.
+
+## Informationen organisieren
+
+Mit zuverlässigen Game- und Nutzerdaten kann TrackGames Informationen aus mehreren Quellen auf einer einzelnen Seite zusammenführen.
+
+Anstatt zusammengehörige Informationen über mehrere Ansichten zu verteilen, ist das Ziel, alles Wichtige an einem Ort bereitzustellen.
+
+<Figure
+	src="/projects/trackgames/ui-show.svg"
+	alt="TrackGames profile page"
+	caption="Abbildung 4. Game-Seite mit gruppierten Informationen und minimaler Navigation."
+/>
+
+Die Seite kombiniert Game-Metadaten mit nutzerspezifischen Informationen, darunter persönliche Statistiken, Genres, Screenshots und Videos, an einem einzigen Ort.
+
+## Anpassung
+
+Anpassungsmöglichkeiten sind ein wichtiger Bestandteil, den ich den Nutzern der Plattform bieten wollte.
+
+* Hintergrundbilder
+* Nutzertitel
+* Eigene Game-Listen
+* Markdown-Widgets
+* Darstellung von Profilstatistiken
+
+<Figure
+	src="/projects/trackgames/customization.svg"
+	alt="TrackGames widget menu"
+	caption="Abbildung 5. Profilanpassung durch Widgets, Markdown und konfigurierbare Bereiche."
+/>
+
+Markdown ist das flexibelste Anpassungs-Feature. Nutzer können Layouts erstellen, Bilder und Videos einbinden, auf andere Seiten verlinken und ihre Profile personalisieren, **ohne HTML schreiben zu müssen**.
+
+> Mit einer URL-Scanning-Schicht wird sichergestellt, dass nichts Unsicheres auf Nutzerprofilen veröffentlicht wird. Falls trotzdem etwas durchkommt, gibt es zusätzlich einen **Report-Button**.
+
+Ich möchte eine ähnliche Profil-Kultur wie bei MyAnimeList erreichen, bei der Nutzer Layouts mit Bildern, verschiedenen Textstilen, Tabellen und weiteren Elementen erstellen und ihre Profile präsentieren können.
+
+Dadurch erhalten Nutzer die Werkzeuge, ihre Statistiken, ihre Geschichte und ihre Persönlichkeit als Gamer zu zeigen, was das ultimative Ziel der Plattform ist.
+
+## Technologie
+
+TrackGames basiert auf **Next.js**, **TypeScript**, **PostgreSQL**, **Prisma**, **Redis** und **Docker**. Jede Technologie wurde gewählt, um ein bestimmtes Problem zu lösen, auf das ich während der Entwicklung gestoßen bin.
+
+**Next.js** bietet Server-Side Rendering und API Routes. **TypeScript** verbessert die Wartbarkeit, indem Fehler früh erkannt werden und größere Systeme einfacher erweitert werden können.
+
+Für die dauerhafte Speicherung verwaltet **PostgreSQL** die relationalen Daten der Anwendung, während **Prisma** eine typsichere Schnittstelle zum Abfragen und Aktualisieren der Datenbank bereitstellt.
+
+**Redis** wird als Caching-Schicht für häufig angefragte Daten verwendet, wodurch unnötige Datenbankabfragen reduziert und Antwortzeiten verbessert werden. **Docker** hält Entwicklungs- und Deployment-Umgebungen konsistent, um weniger Entwicklungsprobleme zu haben.
+
+**Coolify** wird verwendet, um die Website auf einem VPS von Hetzner zu hosten, der öffentlich unter der Domain [trackgames.app](https://trackgames.app) erreichbar ist.
+
+<Figure
+	src="/projects/trackgames/architecture.svg"
+	alt="TrackGames technology stack"
+	caption="Abbildung 6. Übersicht der Technologien, die TrackGames antreiben."
+/>
+
+Obwohl jede Technologie eine eigene Aufgabe erfüllt, geht es nicht darum, isolierte Systeme zu erstellen. Zusammen bilden sie eine einzige Pipeline: vom Importieren von Game-Daten und Caching häufig genutzter Inhalte bis hin zum Bereitstellen personalisierter Seiten mit minimaler Verzögerung.
+
+## Zukünftige Arbeit
+
+TrackGames ist keineswegs ein fertiges Produkt. Es ist noch weit von dem entfernt, was ich mir für die Plattform vorstelle.
+
+Ich möchte weitere Gamification-Features hinzufügen, inspiriert von Infinite Backlog, zusätzliche Tools entwickeln, um zu verfolgen, wie gut einzelne Features nach dem Release funktionieren, und weiterhin die Benutzerfreundlichkeit beobachten, da dies eines der Hauptziele ist.
+
+* **Achievement-Fortschritt**: Die Möglichkeit, Achievements verschiedener Gaming-Plattformen wie Steam oder PSN zu synchronisieren und zu verfolgen.
+* **Verbesserte soziale Interaktionen**: Spiele für Plattform-Awards nominieren, Gruppen erstellen, gemeinsam spielen und eigene Gruppen-Gaming-Systeme anbieten.
+* **Recommendation Engine**: Die Hauptseite für Nutzer personalisieren, abhängig davon, welche Spiele sich in ihrer Library befinden.
+
+Dies sind nur einige Beispiele. Weitere Ideen werden aktuell noch weiter ausgearbeitet.
+
+Ich möchte, dass TrackGames eine Community aufbaut, Nutzern ermöglicht, innerhalb der Plattform miteinander zu interagieren und gleichzeitig darauf achtet, was die Community möchte, um die perfekte Tracker-Plattform zu schaffen.
+
+## Fazit
+
+**TrackGames wurde nicht entwickelt, um zu konkurrieren**, indem einfach jedes mögliche Feature hinzugefügt wird. Das Ziel ist, der Game-Tracker zu werden, den ich selbst gerne nutzen würde.
+
+Das Ziel war immer, die Mitte zwischen leistungsstarken Features und einer sauberen Oberfläche zu finden. Wenn andere Spieler die Plattform genauso gerne nutzen, wie ich sie gerne entwickle, dann hat TrackGames genau das erreicht, was es erreichen sollte.
