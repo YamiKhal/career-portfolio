@@ -1,0 +1,27 @@
+---
+import { languages } from "../i18n/ui";
+
+const currentPath = Astro.url.pathname;
+const currentLang = Astro.currentLocale ?? "en";
+
+const pathWithoutLang = currentPath.replace(/^\/(en|de)(?=\/|$)/, "") || "/";
+---
+
+<details class="relative inline-block">
+	<summary class="list-none cursor-pointer border border-border bg-bg px-4 py-2 text-text select-none">
+		{languages[currentLang]}
+	</summary>
+
+	<ul class="absolute right-0 mt-1 min-w-full border border-border bg-bg text-text">
+		{Object.entries(languages).map(([lang, label]) => (
+			<li>
+				<a
+					href={`/${lang}${pathWithoutLang}`}
+					class="block px-2 py-2 text-center hover:bg-primary hover:text-white"
+				>
+					{label}
+				</a>
+			</li>
+		))}
+	</ul>
+</details>

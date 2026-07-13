@@ -4,6 +4,7 @@ export type VariantData = {
     type: string;
     displayName: string;
     description: string;
+    mail: string;
 };
 
 export function getDomainVariant(url: URL): DomainVariant {
@@ -25,11 +26,13 @@ export const variants = {
     career: {
         type: "career",
         displayName: "Yamen Khalili",
-        description: "Learn about projects made by Yamen Khalili"
+        description: "Learn about projects made by Yamen Khalili",
+        mail: "khalili@yamikhal.com"
     },
     yamikhal: {
         type: "yamikhal",
         displayName: "YamiKhal",
-        description: "Learn about projects made by YamiKhal"
+        description: "Learn about projects made by YamiKhal",
+        mail: "contact@yamikhal.com"
     }
 } satisfies Record<DomainVariant, VariantData>

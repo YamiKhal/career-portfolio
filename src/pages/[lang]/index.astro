@@ -44,7 +44,7 @@ const t = useTranslations(lang);
 			</div>
 			<div class="mt-5 mb-3">
 				<Button
-					href="mailto:contact@yamikhal.com"
+					href=`mailto:${variant.mail}`
 					ariaLabel={t("button.contact")}
 				>
 					{t("button.contact")}
@@ -84,8 +84,7 @@ const t = useTranslations(lang);
 				github="https://github.com/YamiKhal/TrackGames"
 				blog=`/${lang}/blog/trackgames`
 			>
-				A <mark>complete game tracker</mark> where you can organize your library,
-				rate games, track progress, and share your profile.
+				{t("projects.trackgames.desc")}
 			</ProjectEntry>
 		</div>
 	</section>

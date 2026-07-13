@@ -1,23 +1,27 @@
 ---
 import TechEntry from "@/components/TechEntry.astro";
 
-import DockerIcon from "@/assets/icons/docker.svg?raw";
-import GitIcon from "@/assets/icons/git.svg?raw";
-import JavaIcon from "@/assets/icons/java.svg?raw";
-import NextJsIcon from "@/assets/icons/nextdotjs.svg?raw";
-import NodeJsIcon from "@/assets/icons/nodedotjs.svg?raw";
-import PostgreSqlIcon from "@/assets/icons/postgresql.svg?raw";
-import PrismaIcon from "@/assets/icons/prisma.svg?raw";
-import ReactIcon from "@/assets/icons/react.svg?raw";
-import RedisIcon from "@/assets/icons/redis.svg?raw";
-import TailwindCssIcon from "@/assets/icons/tailwindcss.svg?raw";
-import TypescriptIcon from "@/assets/icons/typescript.svg?raw";
-import ExpressIcon from "@/assets/icons/express.svg?raw";
-import CoolifyIcon from "@/assets/icons/coolify.svg?raw";
-import EslintIcon from "@/assets/icons/eslint.svg?raw";
-import SonarIcon from "@/assets/icons/sonarqube.svg?raw";
-import GithubActionsIcon from "@/assets/icons/githubactions.svg?raw";
-import PythonIcon from "@/assets/icons/python.svg?raw";
+import DockerIcon from "/icons/docker.svg?raw";
+import GitIcon from "/icons/git.svg?raw";
+import JavaIcon from "/icons/java.svg?raw";
+import NextJsIcon from "/icons/nextdotjs.svg?raw";
+import NodeJsIcon from "/icons/nodedotjs.svg?raw";
+import PostgreSqlIcon from "/icons/postgresql.svg?raw";
+import PrismaIcon from "/icons/prisma.svg?raw";
+import ReactIcon from "/icons/react.svg?raw";
+import RedisIcon from "/icons/redis.svg?raw";
+import TailwindCssIcon from "/icons/tailwindcss.svg?raw";
+import TypescriptIcon from "/icons/typescript.svg?raw";
+import ExpressIcon from "/icons/express.svg?raw";
+import CoolifyIcon from "/icons/coolify.svg?raw";
+import EslintIcon from "/icons/eslint.svg?raw";
+import SonarIcon from "/icons/sonarqube.svg?raw";
+import GithubActionsIcon from "/icons/githubactions.svg?raw";
+import PythonIcon from "/icons/python.svg?raw";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 const panels = [
 	{
@@ -73,7 +77,7 @@ const panels = [
 							data-terminal-tab={id}
 						>
 							<span>$</span>
-							{id}
+							{t('terminal.tab.'+id)}
 						</button>
 					))
 				}

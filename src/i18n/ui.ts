@@ -4,7 +4,7 @@ import deutsch from "./lang/de";
 export const languages = {
   en: 'English',
   de: 'Deutsch',
-};
+} as Record<string, string>;
 
 export const defaultLang = 'en';
 

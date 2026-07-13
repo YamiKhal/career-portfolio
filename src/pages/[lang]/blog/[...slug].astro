@@ -39,115 +39,112 @@ const readingTime = Math.max(
 ---
 
 <Layout>
-	<main class="mx-auto w-full max-w-6xl">
-		<div class="flex flex-row gap-10">
-			<a
-				class="text-text-muted hover:text-primary mb-5 inline-flex items-center gap-2"
-				href={`/`}
-			>
-				<ArrowLeft size={16} />
-				<span>cd ../</span>
-			</a>
+	<div class="flex flex-row gap-10">
+		<a
+			class="text-text-muted hover:text-primary mb-5 inline-flex items-center gap-2"
+			href={`/`}
+		>
+			<ArrowLeft size={16} />
+			<span>cd ../</span>
+		</a>
 
-			<a
-				class="text-text-muted hover:text-primary mb-5 inline-flex items-center gap-2"
-				href={`/${lang}/blogs`}
-			>
-				<ArrowLeft size={16} />
-				<span>cd ../blogs</span>
-			</a>
-		</div>
+		<a
+			class="text-text-muted hover:text-primary mb-5 inline-flex items-center gap-2"
+			href={`/${lang}/blogs`}
+		>
+			<ArrowLeft size={16} />
+			<span>cd ../blogs</span>
+		</a>
+	</div>
 
-		<article class="bg-bg border-border border-2">
-			<header class="border-border border-b-2">
-				<div
-					class="bg-surface border-b-2 border-border text-text flex items-center justify-end px-3 py-2 font-mono font-bold"
-					aria-hidden="true"
-				>
-					<span>─ □ ×</span>
-				</div>
-
-				<div class="p-5 sm:p-8 md:p-10">
-					<div
-						class="text-text-muted mb-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm"
-					>
-						<span class="inline-flex items-center gap-2">
-							<CalendarDays size={16} />
-							{formattedDate}
-						</span>
-
-						<span class="inline-flex items-center gap-2">
-							<Clock3 size={16} />
-							{readingTime} min read
-						</span>
-					</div>
-
-					<h1
-						class="text-secondary max-w-4xl text-4xl leading-none font-bold text-balance sm:text-5xl md:text-6xl"
-					>
-						{page.data.title}
-					</h1>
-
-					{
-						page.data.description && (
-							<p class="text-text-muted mt-4 max-w-3xl text-lg leading-relaxed">
-								{page.data.description}
-							</p>
-						)
-					}
-
-					{
-						page.data.tags?.length > 0 && (
-							<ul
-								class="mt-5 flex flex-wrap gap-2"
-								aria-label="Article tags"
-							>
-								{page.data.tags.map((tag: string) => (
-									<li class="border-border/50 bg-border/5 text-primary border px-2 py-1 text-xs">
-										#{tag}
-									</li>
-								))}
-							</ul>
-						)
-					}
-				</div>
-			</header>
-
+	<article class="bg-bg border-border border-2">
+		<header class="border-border border-b-2">
 			<div
-				class="bg-bg grid grid-cols-1 gap-8 p-5 sm:p-8 md:p-10 lg:grid-cols-[minmax(0,1fr)_13rem]"
+				class="bg-surface border-border text-text flex items-center justify-end border-b-2 px-3 py-2 font-mono font-bold"
+				aria-hidden="true"
 			>
-				<div class="blog-content max-w-3xl min-w-0">
-					<Content />
+				<span>─ □ ×</span>
+			</div>
+
+			<div class="p-5 sm:p-8 md:p-10">
+				<div
+					class="text-text-muted mb-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm"
+				>
+					<span class="inline-flex items-center gap-2">
+						<CalendarDays size={16} />
+						{formattedDate}
+					</span>
+
+					<span class="inline-flex items-center gap-2">
+						<Clock3 size={16} />
+						{readingTime} min read
+					</span>
 				</div>
+
+				<h1
+					class="text-secondary max-w-4xl text-4xl leading-none font-bold text-balance sm:text-5xl md:text-6xl"
+				>
+					{page.data.title}
+				</h1>
 
 				{
-					headings.length > 1 && (
-						<aside class="border-border top-8 hidden self-start border-l-2 pl-4 lg:block">
-							<nav aria-label="Table of contents">
-								<ul class="space-y-2">
-									{headings
-										.filter((heading) => heading.depth <= 3)
-										.map((heading) => (
-											<li
-												class:list={[
-													heading.depth === 3 &&
-														"pl-4",
-												]}
-											>
-												<a
-													class="text-text-muted hover:text-secondary font-mono text-sm"
-													href={`#${heading.slug}`}
-												>
-													{heading.text}
-												</a>
-											</li>
-										))}
-								</ul>
-							</nav>
-						</aside>
+					page.data.description && (
+						<p class="text-text-muted mt-4 max-w-3xl text-lg leading-relaxed">
+							{page.data.description}
+						</p>
+					)
+				}
+
+				{
+					page.data.tags?.length > 0 && (
+						<ul
+							class="mt-5 flex flex-wrap gap-2"
+							aria-label="Article tags"
+						>
+							{page.data.tags.map((tag: string) => (
+								<li class="border-border/50 bg-border/5 text-primary border px-2 py-1 text-xs">
+									#{tag}
+								</li>
+							))}
+						</ul>
 					)
 				}
 			</div>
-		</article>
-	</main>
+		</header>
+
+		<div
+			class="bg-bg grid grid-cols-1 gap-8 p-5 sm:p-8 md:p-10 lg:grid-cols-[minmax(0,1fr)_13rem]"
+		>
+			<div class="blog-content max-w-3xl min-w-0">
+				<Content />
+			</div>
+
+			{
+				headings.length > 1 && (
+					<aside class="border-border top-8 hidden self-start border-l-2 pl-4 lg:block">
+						<nav aria-label="Table of contents">
+							<ul class="space-y-2">
+								{headings
+									.filter((heading) => heading.depth <= 3)
+									.map((heading) => (
+										<li
+											class:list={[
+												heading.depth === 3 && "pl-4",
+											]}
+										>
+											<a
+												class="text-text-muted hover:text-secondary font-mono text-sm"
+												href={`#${heading.slug}`}
+											>
+												{heading.text}
+											</a>
+										</li>
+									))}
+							</ul>
+						</nav>
+					</aside>
+				)
+			}
+		</div>
+	</article>
 </Layout>
