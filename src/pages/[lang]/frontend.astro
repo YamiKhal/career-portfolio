@@ -1,0 +1,52 @@
+---
+import { ArrowLeft } from "@lucide/astro";
+import Layout from "@/layouts/Layout.astro";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+import ProjectEntry from "@/components/ProjectEntry.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Layout>
+	<div class="flex flex-row gap-10">
+		<a
+			class="text-text-muted hover:text-primary mb-5 inline-flex items-center gap-2"
+			href={`/`}
+		>
+			<ArrowLeft size={16} />
+			<span>cd ../</span>
+		</a>
+	</div>
+
+	<section class="flex w-full flex-col gap-5">
+		<div class="flex w-full flex-col items-center justify-center">
+			<h1
+				class="text-primary-hover mb-2 flex flex-row items-center gap-3 font-bold"
+			>
+				Frontend Projects
+			</h1>
+			<p class="text-text-muted text-center">{t("frontend.head.desc")}</p>
+		</div>
+
+		<div class="mt-10">
+			<div
+				class="grid auto-rows-fr grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3"
+			>
+				<ProjectEntry
+					src="/projects/frontend/circuit.png"
+					title="CircuitRP Redesign"
+					tags={[
+                        "react",
+                        "typescript",
+                        "tailwind"
+                    ]}
+					website="https://circuitredesign.netlify.app/"
+                    github="https://github.com/YamiKhal/circuit-redesign"
+				>
+					{t("projects.frontend.circuit")}
+				</ProjectEntry>
+			</div>
+		</div>
+	</section>
+</Layout>

@@ -10,7 +10,7 @@ tags:
 
 ---
 
-import Figure from "@/components/Figure.astro"
+import MediaViewer from "@/components/MediaViewer.astro"
 
 Eine Plattform, die es Nutzern ermöglicht, ihre **Gaming-Reise zu verfolgen**, **interessante Zahlen** zu generieren und das Ganze auf eine **spielerische Art** zu erleben.
 
@@ -23,7 +23,7 @@ Warum wurde die Plattform erstellt? Warum ist sie genau so aufgebaut? Genau dies
 
 Ich wollte eine Anwendung erstellen, die **beide Plattformen miteinander verbindet**.
 
-<Figure 
+<MediaViewer fit="contain" 
     src="/projects/trackgames/comp.svg"
 	alt="Comparison Display"
 	caption="Abbildung 1. Vergleich zwischen minimalistischen und umfangreichen Interfaces, die die Designrichtung von TrackGames inspiriert haben."
@@ -45,7 +45,7 @@ TrackGames basiert auf einigen grundlegenden Prinzipien, die ich beim Entwickeln
 * **Konsistente Systeme**:
   Ähnliche Interaktionen sollen gleich funktionieren und dargestellt werden, damit die Erfahrung vorhersehbar bleibt.
 
-<Figure
+<MediaViewer fit="contain"
 	src="/projects/trackgames/profile.svg"
 	alt="TrackGames game page"
 	caption="Abbildung 2. Profilseite mit Nutzeranpassungen und dargestellten Daten."
@@ -57,7 +57,7 @@ Anstatt bei jedem Laden einer Seite Daten von externen Services abzurufen, speic
 
 > TrackGames nutzt zwei primäre Datenquellen: [IGDB](https://www.igdb.com/) für Game-Metadaten und **Google Analytics** für Nutzungsstatistiken der Plattform. TrackGames kontrolliert, wie die Daten gespeichert und innerhalb der Anwendung dargestellt werden.
 
-<Figure
+<MediaViewer fit="contain"
 	src="/projects/trackgames/data-flow.svg"
 	alt="TrackGames data flow"
 	caption="Abbildung 3. Darstellung des Prozesses zum Importieren und Verarbeiten von Game-Daten."
@@ -71,7 +71,7 @@ Mit zuverlässigen Game- und Nutzerdaten kann TrackGames Informationen aus mehre
 
 Anstatt zusammengehörige Informationen über mehrere Ansichten zu verteilen, ist das Ziel, alles Wichtige an einem Ort bereitzustellen.
 
-<Figure
+<MediaViewer fit="contain"
 	src="/projects/trackgames/ui-show.svg"
 	alt="TrackGames profile page"
 	caption="Abbildung 4. Game-Seite mit gruppierten Informationen und minimaler Navigation."
@@ -89,7 +89,7 @@ Anpassungsmöglichkeiten sind ein wichtiger Bestandteil, den ich den Nutzern der
 * Markdown-Widgets
 * Darstellung von Profilstatistiken
 
-<Figure
+<MediaViewer fit="contain"
 	src="/projects/trackgames/customization.svg"
 	alt="TrackGames widget menu"
 	caption="Abbildung 5. Profilanpassung durch Widgets, Markdown und konfigurierbare Bereiche."
@@ -115,7 +115,7 @@ Für die dauerhafte Speicherung verwaltet **PostgreSQL** die relationalen Daten 
 
 **Coolify** wird verwendet, um die Website auf einem VPS von Hetzner zu hosten, der öffentlich unter der Domain [trackgames.app](https://trackgames.app) erreichbar ist.
 
-<Figure
+<MediaViewer fit="contain"
 	src="/projects/trackgames/architecture.svg"
 	alt="TrackGames technology stack"
 	caption="Abbildung 6. Übersicht der Technologien, die TrackGames antreiben."

@@ -10,7 +10,7 @@ tags:
 
 ---
 
-import Figure from "@/components/Figure.astro"
+import MediaViewer from "@/components/MediaViewer.astro"
 
 A platform that allows users to **log their gaming** journey, generate **fun numbers** in a **gamified, fun way**.
 
@@ -23,7 +23,7 @@ Why was it created? Why is it designed the way it is? This is what I will be ans
 
 I wanted to create an application that **merges both platforms**.
 
-<Figure 
+<MediaViewer fit="contain" 
     src="/projects/trackgames/comp.svg"
 	alt="Comparison Display"
 	caption="Figure 1. Comparing minimalist and feature-rich interfaces that inspired TrackGames' design direction."
@@ -45,7 +45,7 @@ TrackGames is built around a few guiding principles that I use while building ne
 - **Consistent systems**:
     Similar interactions should function and display the same, ensuring the experience remains predictable.
 
-<Figure
+<MediaViewer fit="contain"
 	src="/projects/trackgames/profile.svg"
 	alt="TrackGames game page"
 	caption="Figure 2. Profile page showing user customization and displayed data."
@@ -57,7 +57,7 @@ Instead of requesting data from external services every time a page loads, Track
 
 > TrackGames uses two primary data sources: [IGDB](https://www.igdb.com/) for game metadata and **Google Analytics** for platform usage statistics. TrackGames controls how the data is stored and presented throughout the application.
 
-<Figure
+<MediaViewer fit="contain"
 	src="/projects/trackgames/data-flow.svg"
 	alt="TrackGames data flow"
 	caption="Figure 3. Diagram showing the process of importing and processing game data."
@@ -71,7 +71,7 @@ With reliable game and user data available, TrackGames combines information from
 
 Rather than spreading related information across several views, the goal is to keep everything users need in one place.
 
-<Figure
+<MediaViewer fit="contain"
 	src="/projects/trackgames/ui-show.svg"
 	alt="TrackGames profile page"
 	caption="Figure 4. Game page showcasing grouped data and minimal navigation displays."
@@ -89,7 +89,7 @@ Customization is a key element I wanted to provide the users of the platform.
 - Markdown widgets
 - Showcasing profile stats
 
-<Figure
+<MediaViewer fit="contain"
 	src="/projects/trackgames/customization.svg"
 	alt="TrackGames widget menu"
 	caption="Figure 5. Profile customization through widgets, Markdown, and configurable sections."
@@ -115,7 +115,7 @@ For persistent storage, **PostgreSQL** manages the application's relational data
 
 **Coolify** is used to host the website on a VPS obtained from Hetzner, publicly available under the [trackgames.app](https://trackgames.app) domain.
 
-<Figure
+<MediaViewer fit="contain"
 	src="/projects/trackgames/architecture.svg"
 	alt="TrackGames technology stack"
 	caption="Figure 6. High-level overview of the technologies powering TrackGames."

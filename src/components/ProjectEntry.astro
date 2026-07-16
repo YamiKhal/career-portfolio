@@ -1,6 +1,6 @@
 ---
-import { Image } from "astro:assets";
 import Button from "./Button.astro";
+import MediaViewer from "./MediaViewer.astro";
 import GithubIcon from "/icons/github.svg?raw";
 
 interface Props {
@@ -31,59 +31,62 @@ const tagClasses = {
 	"github actions": "text-info border-info/50  bg-info/5",
 	sonarqube: "text-text-muted border-text-muted/50 bg-text-muted/5",
 	eslint: "text-primary-hover border-primary-hover/50 bg-primary-hover/5",
-	java: "text-warn border-warn/50 bg-warn/5",
-	python: "text-warn border-warn/50 bg-warn/5",
+	java: "text-warning border-warning/50 bg-warning/5",
+	python: "text-warning border-warning/50 bg-warning/5",
+	category: "text-warning border-warning/50 bg-warning/5",
 	"express.js": "text-text-muted border-text-muted/50 bg-text-muted/5",
 } as Record<string, string>;
 ---
 
 <div
-	class="border-border bg-surface text-text flex min-h-100 flex-col gap-6 border p-4"
+	class="border-border bg-surface text-text flex h-full min-h-124 flex-col border p-4"
 >
-	<h3 class="text-primary font-bold capitalize">{title}</h3>
-	<Image src={src} alt={`${title} cover`} width={800} height={600} />
-	<p class="text-md text-text">
+	<h3 class="text-primary line-clamp-2 min-h-14 font-bold capitalize">
+		{title}
+	</h3>
+	<MediaViewer src={src} alt={`${title} cover`} class="shrink-0" />
+	<p class="text-md text-text line-clamp-6 min-h-24">
 		<slot />
 	</p>
-	<div class="flex flex-row flex-wrap gap-2">
-		{
-			tags.map((tag) => (
-				<div class:list={[baseTagClass, tagClasses[tag]]}>{tag}</div>
-			))
-		}
-	</div>
+	<div class="mt-auto flex flex-col">
+		<div class="flex flex-wrap gap-2">
+			{
+				tags.map((tag) => (
+					<div class:list={[baseTagClass, tagClasses[tag]]}>
+						{tag}
+					</div>
+				))
+			}
+		</div>
 
-	<div class="flex w-full flex-row gap-3">
-		<Button
-			href={website ?? "#"}
-			ariaLabel="Website"
-			class="flex-1"
-			target="_blank"
-			rel="noreferrer noopener"
-			disabled={!website}
-		>
-			Website
-		</Button>
+		<div class="mt-3 flex w-full gap-3">
+			<Button
+				href={website ?? "#"}
+				ariaLabel="Website"
+				class="flex-1"
+				target="_blank"
+				rel="noreferrer noopener"
+				disabled={!website}
+			>
+				Website
+			</Button>
 
-		<Button
-			href={blog ?? "#"}
-			ariaLabel="Blog"
-			disabled={!blog}
-		>
-			Blog
-		</Button>
+			<Button href={blog ?? "#"} ariaLabel="Blog" disabled={!blog}>
+				Blog
+			</Button>
 
-		<Button
-			href={github ?? "#"}
-			ariaLabel="GitHub"
-			target="_blank"
-			rel="noreferrer noopener"
-			disabled={!github}
-		>
-			<span
-				class="flex size-6 [&>svg]:block [&>svg]:size-full"
-				set:html={GithubIcon}
-			/>
-		</Button>
+			<Button
+				href={github ?? "#"}
+				ariaLabel="GitHub"
+				target="_blank"
+				rel="noreferrer noopener"
+				disabled={!github}
+			>
+				<span
+					class="flex size-6 [&>svg]:block [&>svg]:size-full"
+					set:html={GithubIcon}
+				/>
+			</Button>
+		</div>
 	</div>
 </div>
